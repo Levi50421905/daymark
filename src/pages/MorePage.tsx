@@ -31,6 +31,7 @@ import {
 import { formatDateRange, relativeTimeLabel } from '@/lib/dates'
 import { formatMoney } from '@/lib/format'
 import { transitions } from '@/lib/motion'
+import { prefetchRoute } from '@/lib/routes'
 import { useAppData, useAppStore } from '@/lib/store'
 import { APP_NAME, APP_VERSION } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -70,6 +71,8 @@ function FeatureCard({
     >
       <Link
         to={to}
+        onMouseEnter={() => prefetchRoute(to)}
+        onFocus={() => prefetchRoute(to)}
         className="focus-ring group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface p-5 shadow-card transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift"
       >
         <div className={cn('pointer-events-none absolute inset-0 opacity-80', gradient)} aria-hidden="true" />

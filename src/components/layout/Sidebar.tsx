@@ -7,6 +7,7 @@ import { StatusDot } from '@/components/ui/Badge'
 import { getInventorySummary, getShoppingOverview, getTodaysTasks, getUpcomingSubscriptions } from '@/lib/calc'
 import { relativeTimeLabel } from '@/lib/dates'
 import { transitions } from '@/lib/motion'
+import { prefetchRoute } from '@/lib/routes'
 import { useAppData, useAppStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 
@@ -56,6 +57,8 @@ export function Sidebar() {
                 <Link
                   to={item.to}
                   aria-current={active ? 'page' : undefined}
+                  onMouseEnter={() => prefetchRoute(item.to)}
+                  onFocus={() => prefetchRoute(item.to)}
                   className={cn(
                     'focus-ring group relative flex h-[46px] items-center gap-3 rounded-[14px] px-3 text-[0.8125rem] font-semibold transition-colors duration-150',
                     active ? 'text-ink' : 'text-ink-2 hover:bg-surface-2 hover:text-ink',

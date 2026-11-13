@@ -8,6 +8,7 @@ import {
   getUpcomingSubscriptions,
 } from '@/lib/calc'
 import { transitions } from '@/lib/motion'
+import { prefetchRoute } from '@/lib/routes'
 import { useAppData } from '@/lib/store'
 import { cn } from '@/lib/utils'
 
@@ -45,6 +46,9 @@ export function BottomNav() {
               key={item.to}
               to={item.to}
               aria-current={active ? 'page' : undefined}
+              onMouseEnter={() => prefetchRoute(item.to)}
+              onFocus={() => prefetchRoute(item.to)}
+              onPointerDown={() => prefetchRoute(item.to)}
               className="focus-ring relative flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-2xl"
             >
               <motion.span

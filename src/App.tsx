@@ -6,17 +6,18 @@ import { PwaManager } from '@/components/layout/PwaManager'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { ToastProvider } from '@/components/ui/Toast'
 import { initStore, startWithoutStorage, useAppStore } from '@/lib/store'
+import { routeModules } from '@/lib/routes'
 
-const DashboardPage = lazy(() => import('@/pages/DashboardPage'))
-const FinancePage = lazy(() => import('@/features/finance/FinancePage'))
-const ShoppingPage = lazy(() => import('@/features/shopping/ShoppingPage'))
-const InventoryPage = lazy(() => import('@/features/inventory/InventoryPage'))
-const PlanningPage = lazy(() => import('@/features/planning/PlanningPage'))
-const InternetPage = lazy(() => import('@/features/internet/InternetPage'))
-const ReviewsPage = lazy(() => import('@/features/reviews/ReviewsPage'))
-const MorePage = lazy(() => import('@/pages/MorePage'))
-const SettingsPage = lazy(() => import('@/pages/SettingsPage'))
-const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+const DashboardPage = lazy(routeModules.dashboard)
+const FinancePage = lazy(routeModules.finance)
+const ShoppingPage = lazy(routeModules.shopping)
+const InventoryPage = lazy(routeModules.inventory)
+const PlanningPage = lazy(routeModules.planning)
+const InternetPage = lazy(routeModules.internet)
+const ReviewsPage = lazy(routeModules.reviews)
+const MorePage = lazy(routeModules.more)
+const SettingsPage = lazy(routeModules.settings)
+const NotFoundPage = lazy(routeModules.notFound)
 
 export default function App() {
   const { status, error } = useAppStore()

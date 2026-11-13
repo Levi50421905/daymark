@@ -9,6 +9,7 @@ import { useTheme } from '@/components/theme/ThemeProvider'
 import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus'
 import { relativeTimeLabel } from '@/lib/dates'
 import { transitions } from '@/lib/motion'
+import { prefetchRoute } from '@/lib/routes'
 import { useAppStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 
@@ -104,7 +105,7 @@ export function Topbar() {
           <OfflinePill />
           <SaveIndicator />
           <ThemeToggle />
-          <Link to="/settings" aria-label="Buka pengaturan" title="Pengaturan">
+          <Link to="/settings" aria-label="Buka pengaturan" title="Pengaturan" onMouseEnter={() => prefetchRoute('/settings')} onFocus={() => prefetchRoute('/settings')}>
             <span className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-[13px] border border-line bg-surface text-ink-2 transition-colors hover:border-line-strong hover:text-ink">
               <Settings size={18} strokeWidth={2} aria-hidden="true" />
             </span>

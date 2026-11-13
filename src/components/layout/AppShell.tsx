@@ -1,13 +1,13 @@
 import { Suspense, useEffect, type ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import { MotionConfig } from 'framer-motion'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { PageSkeleton } from '@/components/ui/Skeleton'
 import { pageTitleForPath } from '@/components/layout/nav-config'
 import { usePageTitle } from '@/lib/hooks/usePageTitle'
-import { pageTransition } from '@/lib/motion'
+import { prefetchPrimaryRoutes } from '@/lib/routes'
 import { saveNow } from '@/lib/store'
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -17,6 +17,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [location.pathname])
+
+  useEffect(() => {
+    const timer = window.setTimeout(prefetchPrimaryRoutes, 2400)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const handleHide = () => {
@@ -38,18 +43,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="lg:pl-[252px]">
           <Topbar />
           <main className="app-shell-main">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={location.pathname}
-                variants={pageTransition}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="page-container pt-5 sm:pt-6"
-              >
-                <Suspense fallback={<PageSkeleton />}>{children}</Suspense>
-              </motion.div>
-            </AnimatePresence>
+            {/*
+              A keyed, CSS-driven entrance is deliberately used for route changes
+              instead of AnimatePresence exit/wait. Suspense can resolve after the
+              old route is gone, and the content must never be held at opacity 0.
+            */}
+            <div key={location.pathname} className="page-container page-enter pt-5 sm:pt-6">
+              <Suspense fallback={<PageSkeleton />}>{children}</Suspense>
+            </div>
           </main>
         </div>
         <BottomNav />
