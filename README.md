@@ -5,6 +5,14 @@ Daymark brings money, shopping, food stock, plans, and reflection into one quiet
 
 Built as a mobile-first Progressive Web App with React, TypeScript, IndexedDB, and a hand-tuned design system. It is designed to be used every day and to look like a product, not a template.
 
+## Live
+
+**[https://levi50421905.github.io/daymark/](https://levi50421905.github.io/daymark/)**
+
+Deployed automatically to GitHub Pages from `main` by the workflow in [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). Every push runs the unit tests, builds the PWA with the `/daymark/` base path, and publishes the static app.
+
+The site is a PWA: open it in Chrome/Edge and choose **Install app**. Deep links and reloads are supported through the GitHub Pages fallback page; the app shell itself keeps working offline after the first visit.
+
 ---
 
 ## Highlights
@@ -76,6 +84,18 @@ Open the preview URL in Chrome/Edge and use **Install app** from the browser men
 | `npm run test:e2e` | Playwright smoke tests (requires Chrome; starts a dev server on port 4173) |
 | `npm run lint` | Oxlint |
 | `python scripts/generate_icons.py` | Regenerate PWA/favicon PNGs from the Daymark mark |
+
+## Deploying
+
+The live app is hosted on **GitHub Pages**:
+
+```text
+https://levi50421905.github.io/daymark/
+```
+
+The workflow in `.github/workflows/deploy-pages.yml` deploys on every push to `main`. It sets `PAGES_BASE=/daymark/` so Vite emits the correct asset and PWA URLs, runs the unit tests, and uploads `dist` with the official Pages actions.
+
+If the repository is ever renamed, update `PAGES_BASE` in the workflow and the known base paths in `public/404.html`. To deploy under a user/root domain instead, build with the default base (`npm run build`) and adjust the same two values.
 
 ## Data model & privacy
 
